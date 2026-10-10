@@ -7,7 +7,9 @@ Internal helper for the **gander-\*** organizations. It assigns the user [`gande
 
 It fails the job loudly ❌ if GitHub did not actually assign the user (the assignees API answers `2xx` even when it silently drops a login).
 
-## Usage
+## Quick start 🚀
+
+Drop this into `.github/workflows/auto-assign.yml` in any repo:
 
 ```yaml
 name: Auto Assign
@@ -18,8 +20,6 @@ on:
   pull_request_target:
     types: [opened, reopened, ready_for_review]
 
-permissions: {}
-
 jobs:
   assign:
     name: Assign
@@ -29,11 +29,13 @@ jobs:
       pull-requests: write
     steps:
       - name: Assign gander
-        uses: gander-actions/auto-assign@<commit-sha>
+        uses: gander-actions/auto-assign@main
 ```
 
+- No checkout step needed: the action is fetched remotely and never touches the repo's code.
 - Use `pull_request_target`, not `pull_request`: Dependabot and fork PRs get a read-only token under the latter. The action does not check out or run PR code, so this is safe.
-- Pin to a commit SHA.
+- Tracks `main` on purpose: every repo picks up changes immediately, with no version to bump. Only the owner can push here, so that is the trust boundary. 📌
+- `gander` must be assignable in the repo (owner or collaborator), otherwise the job fails with `gander was not assigned to #N`.
 - The assignee is fixed (`gander`); there is no input for it. 🔒
 - `token` is the only input and defaults to `github.token`; pass a PAT or App token only if that cannot assign the user.
 
