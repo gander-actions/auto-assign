@@ -1,0 +1,9 @@
+name: Auto-assign
+description: Assign the user gander to a newly opened or reopened issue or pull request.
+inputs:
+  token:
+    description: Token used to call the GitHub API.
+    default: ${{ github.token }}
+runs:
+  using: node24
+  main: dist/main.js
