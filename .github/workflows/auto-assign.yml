@@ -1,4 +1,4 @@
-name: auto-assign
+name: Auto Assign
 
 on:
   issues:
@@ -10,13 +10,16 @@ permissions: {}
 
 jobs:
   assign:
+    name: Assign
     runs-on: ubuntu-latest
     permissions:
       issues: write
       pull-requests: write
     steps:
       # default ref on pull_request_target is the base branch, never the PR head
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: ./
+      - name: Assign gander
+        uses: ./
