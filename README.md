@@ -1,4 +1,4 @@
-# auto-assign 🎯
+# Auto Assign 🎯
 
 Internal helper for the **gander-\*** organizations. It assigns the user [`gander`](https://github.com/gander) 🦆 to:
 
@@ -10,7 +10,7 @@ It fails the job loudly ❌ if GitHub did not actually assign the user (the assi
 ## Usage
 
 ```yaml
-name: auto-assign
+name: Auto Assign
 
 on:
   issues:
@@ -22,12 +22,14 @@ permissions: {}
 
 jobs:
   assign:
+    name: Assign
     runs-on: ubuntu-latest
     permissions:
       issues: write
       pull-requests: write
     steps:
-      - uses: gander-actions/auto-assign@<commit-sha>
+      - name: Assign gander
+        uses: gander-actions/auto-assign@<commit-sha>
 ```
 
 - Use `pull_request_target`, not `pull_request`: Dependabot and fork PRs get a read-only token under the latter. The action does not check out or run PR code, so this is safe.

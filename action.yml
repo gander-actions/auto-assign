@@ -1,4 +1,4 @@
-name: Auto-assign
+name: Auto Assign
 description: Assign the user gander to a newly opened or reopened issue or pull request.
 inputs:
   token:
